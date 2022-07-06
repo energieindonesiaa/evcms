@@ -1,0 +1,38 @@
+<div>
+    <div class="card mb-2">
+        <div class="card-header p-3 pt-2">
+            <div
+                class="icon icon-lg icon-shape shadow-dark shadow text-center border-radius-xl mt-n4 position-absolute" 
+                [ngClass]="chargingstation.available ? 'bg-gradient-success' : 'bg-gradient-primary'">
+                <i class="material-icons opacity-10">ev_station</i>
+            </div>
+            <div class="text-end pt-1">
+                <p class="text-sm mb-0 text-capitalize">Connector</p>
+                <h6 class="mb-0">{{chargingstation.connector}}</h6>
+            </div>
+        </div>
+        <hr class="dark horizontal my-0">
+        <div class="card-footer p-3">
+            <div class="row">
+                <div class="col-lg-8 col-md-8">
+                    <h6 class="mb-0">{{chargingstation.location}}</h6>
+                </div>
+                <div class="col text-end">
+                    <span class="badge badge-md bg-gradient-secondary">#{{chargingstation.chargingno}}</span>
+                </div>
+            </div>
+            
+            <p class="mb-0">
+                
+                <span class="text-success text-lg font-weight-bolder">{{chargingstation.capacity}}
+                </span>kW
+            </p>
+            <h6 *ngIf="chargingstation.available">
+                <span class="badge badge-md bg-gradient-success">Available</span>
+            </h6>
+            <h6 *ngIf="!chargingstation.available">
+                <span class="badge badge-md bg-gradient-primary">Busy</span>
+            </h6>
+        </div>
+    </div>
+</div>

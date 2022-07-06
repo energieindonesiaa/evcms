@@ -1,0 +1,99 @@
+<div class="container-fluid py-1">
+   
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="row">
+                <div class="panelbar-wrapper">
+                    <kendo-panelbar>
+                        <kendo-panelbar-item title="Filter Criteria" [expanded]="true">
+                            <ng-template kendoPanelBarContent>
+                                <div class="container-fluid">
+                                    <div class="mb-3 row">
+                                        <div class="col-md-6 col-lg-6">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <label for="inputCity" class="col-sm-2 col-form-label">City</label>
+                                                    <div class="col">
+                                                        <input class="form-control" id="inputCity">
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                        </div>
+                                       
+                                    </div>
+                                    <div class="row">
+                                        <div class="col text-center">
+                                            <button type="button" class="btn btn-primary">Find Result</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+        
+                        </kendo-panelbar-item>
+                    </kendo-panelbar>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-lg-8">
+            <kendo-grid [data]="arr_charging" [pageable]="true" [pageSize]="10">
+                <kendo-grid-column field="evcs_site" title="Station Location">
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                        <div class="d-flex px-2 py-1 align-items-center">
+                            <div>
+                                <i class="material-icons opacity-10" aria-hidden="true">ev_station</i>
+                            </div>
+                            <div class="container-fluid ms-4">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <h6 class="text-md font-weight-normal mb-0"><b>{{dataItem.evcs_vendor}} -
+                                            {{dataItem.evcs_site}}</b></h6>
+                                        <span class="text-md">{{dataItem.address}}, {{dataItem.city}}</span>
+                                    </div>
+                                    
+                                    <div class="col-lg-2 col-md-2">
+                                        <span class="badge badge-md bg-gradient-success">{{dataItem.station_available}}</span>
+                                        <span class="text-sm">&nbsp;Available</span>
+                                    </div>
+                                    <div class="col text-end">
+                                        <span class="badge badge-md bg-gradient-secondary">{{dataItem.station_amount}} station(s)</span>&nbsp;
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </ng-template>
+                </kendo-grid-column>
+                <kendo-grid-command-column title="&nbsp;" [width]="100">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                        <button (click)="getData(dataItem)" class="k-primary">Show</button>
+                        
+                    </ng-template>
+                </kendo-grid-command-column>
+                <!--Detail Grid-->
+                <ng-template kendoGridDetailTemplate let-dataItem>
+                    <section *ngIf="dataItem.station_detail">
+                        <div class="container-fluid">
+                            <div class="row" >
+                                <div class="col-lg-4 col-md-4 col-sm-4 mt-4" *ngFor="let detail of dataItem.station_detail" >
+                                    
+                                    <app-chargingstationdetail [chargingstation]="detail"></app-chargingstationdetail>
+                                </div>
+                            </div>
+                        </div>                        
+                    </section>
+                  </ng-template>
+            </kendo-grid>
+            <!--End Kendo Grid-->
+        </div>
+
+    </div>
+
+</div>
